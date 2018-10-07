@@ -176,6 +176,9 @@ def suggestions(category, prefix):
 	with db as cursor:
 		cursor.execute('SELECT label FROM product WHERE category = %s AND label LIKE "%s\\% LIMIT 10', (category, prefix))
 		return cursor.fetchall()
+		
+if __name__ == '__main__':
+	app.run(host='127.0.0.1', port=5000)
 	
 	
 	
