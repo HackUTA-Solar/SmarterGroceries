@@ -2,19 +2,21 @@
 <html>
 	<head>
 		<title>{% block title %}Placeholder Title{% endblock %} - SmarterGroceries</title>
+		<link rel="stylesheet" href="static/styles/main.css" type="text/css">
 	</head>
 	<body>
 		<div id="main">
 			<div id="header">
-				<div id="logo"</div>
+				<img src="static/assets/logo.png" id="logo">
+				<div id="title-container">
 					<h1>SmarterGroceries</h1>
-					<h2>Developed by Team Solar @ HackUTA 2018</h2>
+					<em>A smarter way to handle your groceries</em>
 				</div>
 				<div id="session">
 				{% if session.username %}
-					<p>Logged in as {{ session.username }} | <a href="logout">Log out</a></p>
+					Logged in as {{ session.username }} | <a href="logout">Log out</a>
 				{% else %}
-					<p><a href="login">Log in</a> | <a href="register">Register</a></p>
+					<a href="login">Log in</a> | <a href="register">Register</a>
 				{% endif %}
 				</div>
 			</div>
@@ -25,7 +27,8 @@
 			{% endif %}
 			<div id="content">{% block content %}{% endblock %}</div>
 			<div id="footer">
-				{% include 'return.html' %}
+				<a href="/">Return to main page</a><br />
+				Developed by Team Solar @ HackUTA 2018 - <a href="https://github.com/HackUTA-Solar/SmarterGroceries">Github</a>
 			</div>
 		</div>
 	</body>

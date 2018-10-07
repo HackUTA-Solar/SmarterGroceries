@@ -1,0 +1,137 @@
+select {
+	/* padding:20px 0px 20px 20px ; */
+	font-size:15px;
+	font-family:sans-serif;
+	/* float:left; */
+	margin-right:50px;
+	border-radius:5px
+}
+
+/* form {
+	float:right;
+} */
+
+/* #footer {
+	background-color:white;
+	height:200px;
+	padding:20px 20px 20px 20px;
+	border-radius:7px 7px 0px 0px
+} */
+ 
+body {
+	background-color: rgb(89, 166, 166);
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	margin: 0px;
+}
+
+#image-upload {
+	background-color: grey;
+	padding:20px;
+	border-radius:0px 0px 7px 7px
+}
+
+#products th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: rgb(89,166,166);
+	color: white;
+	font-family:sans-serif;
+	font-size: 20;
+}
+
+td, th {
+   border: .5px solid #dddddd;
+   text-align: left;
+   padding: 8px;
+}
+
+tr:nth-child(odd) {
+   background-color: #dddddd;
+   text-align:center;
+}
+
+#content {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	width:55%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: rgb(255, 255, 128);
+	border: 2px solid rgb(32, 32, 128);
+	padding: 5px;
+	flex-grow: 1;
+}
+ 
+#data-table {
+	background-color:white;
+	width:100%;
+	min-height: 100px;
+	overflow: hidden;
+}
+#header {
+	background-color: lightblue;
+	padding: 10px;
+	border-bottom: 2px solid rgb(32, 32, 128);
+	height:75px;
+	display: flex;
+}
+
+#footer {
+	background-color: lightblue;
+	padding: 10px;
+	border-top: 2px solid rgb(32, 32, 128);
+	height: 75px;
+}
+
+#logo {
+	max-height: 100%;
+	max-width: 100%;
+	margin-right:20px;
+}
+
+#logo-container {
+	height: auto;
+}
+
+#title-container h1 {
+	margin: 0px;
+}
+
+#session {
+	text-align: right;
+	flex-grow: 1;
+}
+
+#add-item {
+	display: table;
+}
+
+#add-item p {
+	display: table-row;
+}
+
+#add-item label, #add-item input, #add-item select {
+	display: table-cell;
+	padding-right: 10px;
+}
+
+#main {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+/* h1 {
+	/*float:left;* /
+	margin-right:20px;
+	vertical-align:middle;
+}
+
+h4 {
+	font-size:12px;
+	vertical-align:middle;
+	/*float:right* /
+}
+*/
+

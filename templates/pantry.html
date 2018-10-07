@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Your pantry{% endblock %}
 {% block content %}
+<div id="data-table">
 	<table style="width : 100%" , id="products">
 		<tr>
 			<th>Product Type</th>
@@ -23,25 +24,39 @@
 		{% endfor %}
 	{% else %}
 		<tr>
-			<td colspan="0">You don't have any items in your pantry!</td>
+			<td colspan="6" style="text-align: center">You don't have any items in your pantry!</td>
 		</tr>
 	{% endif %}
-		<form>
-		<tr>
-			<td>
-				<select name="category">
+	</table>
+</div>
+	<h3>Add item:</h3>
+		<form id="add-item">
+			<p><label>Category</label>
+				<select name="category" value="Other">
 					<option value="Dairy">Dairy</option>
 					<option value="Protein">Protein</option>
 					<option value="Fruit">Fruit</option>
 					<option value="Grain">Grain</option>
 					<option value="Vegetable">Vegetable</option>
 					<option value="Other">Other</option>
-				</select>
-			</td>
-			<td>
-				<select 
-			</td>
-		</tr>
+				</select></p>
+			<p><label>Product type (e.g. banana, cheese)</label><input type="text" name="type"></p>
+			<p><label>Product condition</label>
+				<select name="condition">
+					<option value = "Unopened">Unopened</option>
+					<option value = "Opened">Opened</option>
+					<option value = "Cooked">Cooked</option>
+				</select></p>
+			<p><label>Storage location</label>
+				<select name="location">
+					<option value = "Counter">Counter</option>
+					<option value = "Pantry">Pantry</option>
+					<option value = "Refrigerator">Refrigerator</option>
+					<option value = "Freezer">Freezer</option>
+				</select></p>
+			<p><label>Date purchased</label><input type="date" name="purchased"></p>
+			<p><label>Expiration date</label><input type="date" name="expdate" id="expdate"></p>
+			<p><label>Input manually</label><input type="checkbox" name="override" id="override"></p>
+			<p><label>Additional comments</label><input name="comments" type="text"></p>
 		</form>
-	    </table>
 {% endblock %}

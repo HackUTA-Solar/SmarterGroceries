@@ -37,7 +37,8 @@ INSERT INTO category (label) VALUES
 	('Protein'),
 	('Fruit'),
 	('Vegetable'),
-	('Grain')
+	('Grain'),
+	('Other'),
 ;
 
 CREATE TABLE IF NOT EXISTS product (
