@@ -1,5 +1,6 @@
 from flask import *
 from flaskext.mysql import MySQL
+from pymysql.err import Error as DatabaseError
 import re, os, hashlib, sys, datetime
 from functools import wraps
 from json import dumps as jdumps
@@ -19,11 +20,11 @@ def error(template, message, **kwargs):
 
 with db as cursor:
 	cursor.execute('SELECT label FROM storage_condition');
-	storage_condition = cursor.fetchall();
+	storage_condition = [i[0] for i in cursor.fetchall()];
 	cursor.execute('SELECT label FROM storage_location');
-	storage_location = cursor.fetchall();
+	storage_location = [i[0] for i in cursor.fetchall()];
 	cursor.execute('SELECT label FROM category');
-	category = cursor.fetchall();
+	category = [i[0] for i in cursor.fetchall()];
 
 @app.route('/')
 def index():
@@ -112,16 +113,17 @@ def require_login(f):
 	return new_f
 			
 def get_items(user_id):
-	columns = ['description', 'product_type', 'date_purchased', 'expiration', 'storage_condition', 'storage_location']
+	columns = ['description', 'product_name', 'date_purchased', 'expiration', 'storage_condition', 'storage_location', 'category']
 	with db as cursor:
 		cursor.execute('SELECT ' + ','.join(columns) +' FROM items WHERE user_id = %s', (user_id,))
 		rows = cursor.fetchall()
+		new = []
 		for i, row in enumerate(rows):
 			new_row = {}
 			for j, column in enumerate(columns):
 				new_row[column] = row[j]
-			rows[i] = new_row
-		return rows
+			new.append(new_row)
+		return new
 		
 def product_name(product_id):
 	with db as cursor:
@@ -134,14 +136,25 @@ def pantry():
 	items = get_items(session['user_id'])
 	for i, item in enumerate(items):
 		new_item = {}
-		new_item['type'] = product_name(item['product_type'])
-		new_item['condition'] = storage_condition[item['storage_condition']]
-		new_item['location'] = storage_location[item['storage_location']]
+		new_item['type'] = item['product_name']
+		new_item['condition'] = storage_condition[item['storage_condition']-1]
+		new_item['location'] = storage_location[item['storage_location']-1]
 		new_item['days'] = (item['expiration'] - datetime.datetime.now()).days
-		new_item['category'] = category[item['category']]
+		new_item['category'] = category[item['category']-1]
 		new_item['comments'] = item['description']
 		items[i] = new_item
 	return render_template('pantry.html', items=items)
+	
+@app.route('/add', methods=['POST'])
+@require_login
+def add():
+	try:
+		with db as cursor:
+			cursor.execute('INSERT INTO items (date_added, user_id, category, description, product_name, date_purchased, expiration, storage_condition, storage_location) VALUES (now(), %s, %s, %s, %s, now(), now(), %s, %s)',
+			(session['user_id'], int(request.form['category']), request.form['comments'], request.form['type'], int(request.form['condition']), int(request.form['location'])));
+	except (KeyError) as e:
+		abort(400)
+	return redirect(url_for('pantry'));
 	
 	
 def json(f):
@@ -171,15 +184,14 @@ def check_name(name):
 
 @app.route('/api/suggestions')
 @json
-@params('category', 'prefix')
-def suggestions(category, prefix):
+@params('prefix')
+def suggestions(prefix):
 	with db as cursor:
 		cursor.execute('SELECT label FROM product WHERE category = %s AND label LIKE "%s\\% LIMIT 10', (category, prefix))
 		return cursor.fetchall()
 		
 if __name__ == '__main__':
 	app.run(host='127.0.0.1', port=5000)
-	
 	
 	
 	

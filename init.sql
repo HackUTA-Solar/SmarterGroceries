@@ -38,7 +38,7 @@ INSERT INTO category (label) VALUES
 	('Fruit'),
 	('Vegetable'),
 	('Grain'),
-	('Other'),
+	('Other')
 ;
 
 CREATE TABLE IF NOT EXISTS product (
@@ -69,13 +69,13 @@ CREATE TABLE IF NOT EXISTS items (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	user_id INT,
 	description VARCHAR(255),
-	product_type INT,
-	quantity INT,
+	product_name VARCHAR(255),
 	date_added DATETIME,
 	date_purchased DATETIME,
 	expiration DATETIME,
 	storage_condition INT,
 	storage_location INT,
+	category INT,
 	FOREIGN KEY (user_id) REFERENCES users(id),
 	FOREIGN KEY (storage_condition) REFERENCES storage_condition(id),
 	FOREIGN KEY (storage_location) REFERENCES storage_location(id)
