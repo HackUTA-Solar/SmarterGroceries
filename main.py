@@ -7,6 +7,8 @@ from json import dumps as jdumps
 
 app = Flask(__name__)
 app.config.from_pyfile('config.conf.py')
+if 'APP_CONFIG' in os.environ:
+	app.config.from_envvar('APP_CONFIG')
 
 mysql = MySQL()
 mysql.init_app(app)
