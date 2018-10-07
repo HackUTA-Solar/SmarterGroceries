@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% block title %}Placeholder Title{% endblock %} - SmarterGroceries</title>
+	</head>
+	<body>
+		<div id="main">
+			<div id="header">
+				<div id="logo"</div>
+					<h1>SmarterGroceries</h1>
+					<h2>Developed by Team Solar @ HackUTA 2018</h2>
+				</div>
+				<div id="session">
+				{% if session.username %}
+					<p>Logged in as {{ session.username }} | <a href="logout">Log out</a></p>
+				{% else %}
+					<p><a href="login">Log in</a> | <a href="register">Register</a></p>
+				{% endif %}
+				</div>
+			</div>
+			{% if error_message %}
+				<div class="error">
+					<p>{{ error_message | e }}</p>
+				</div>
+			{% endif %}
+			<div id="content">{% block content %}{% endblock %}</div>
+			<div id="footer">
+				{% include 'return.html' %}
+			</div>
+		</div>
+	</body>
+</html>

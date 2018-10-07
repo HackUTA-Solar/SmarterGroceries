@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+	<form action="login" method="post" enctype="multipart/form-data">
+		<label>Username</label> <input type="text" name="username" value="{{ username }}"><br />
+		<label>Password</label> <input type="password" name="password"><br />
+		<input type="hidden" name="redirect" value="{{ redirect | e }}">
+		<input type="submit" value="Login" name="submit">
+	</form>
+{% endblock %}

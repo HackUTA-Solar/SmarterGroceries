@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+	{% include 'info.html' %}
+	<hr />
+	{% if session.username %}
+		<p>Welcome, {{ session.username }}! Please <a href="pantry">click here</a> to continue to your pantry.</p>
+	{% else %}
+		Please <a href="login">login</a> to access your pantry. If you don't have an account, you can <a href="register">register one for free</a>.
+	{% endif %}
+{% endblock %}

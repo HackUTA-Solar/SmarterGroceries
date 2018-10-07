@@ -65,15 +65,17 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS items (
-	user_ INT,
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	user_id INT,
 	description VARCHAR(255),
 	product_type INT,
 	quantity INT,
 	date_added DATETIME,
 	date_purchased DATETIME,
-	projected_expiration DATETIME,
+	expiration DATETIME,
 	storage_condition INT,
 	storage_location INT,
+	FOREIGN KEY (user_id) REFERENCES users(id),
 	FOREIGN KEY (storage_condition) REFERENCES storage_condition(id),
 	FOREIGN KEY (storage_location) REFERENCES storage_location(id)
 );
